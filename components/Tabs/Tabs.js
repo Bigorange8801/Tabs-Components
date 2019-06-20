@@ -1,6 +1,6 @@
 
 class TabLink {
-  constructor(element) {
+  constructor(links) {
     // Assign this.element to the passed in DOM element
     // this.element;
     
@@ -14,13 +14,11 @@ class TabLink {
     // this.tabItem;
     
     // Add a click event listener on this instance, calling the select method on click
-    this.element = element;
-    this.data = this.element.dataset.tab;
-    this.itemElement= this.element.document.querSelector(`.tabs-item[data-tab='$(this.data)']`);
+    this.links = links;
+    this.data = this.links.dataset.tab;
+    this.itemElement= document.querySelector(`.tabs-item[data-tab='$(this.data)']`);
     this.tabItem=new TabItem(this.itemElement);
-    this.element.addEventListener('click', () => {
-      this.select()
-    });
+    this.links.addEventListener('click', () => {this.select()});
     
   };
 
@@ -36,18 +34,18 @@ class TabLink {
     
     // Call the select method on the item associated with this link
       const links = document.querySelectorAll('.tabs-links');
-      Array.from(links).forEach(links => links.classList.remove('tabs-links-selected'));
-      this.element.classList.add('tabs-link-selected');
-      this.TabItem.select();
+      Array.from(links).forEach(item => item.classList.remove('tabs-links-selected'));
+      this.links.classList.add('tabs-link-selected');
+      this.tabItem.select();
   }
 
 }
 
 class TabItem {
-  constructor(element) {
+  constructor(tabItm) {
     // Assign this.element to the passed in element
     // this.element;
-    this.element=element;
+    this.tabItm=tabItm;
   }
 
   select() {
@@ -59,8 +57,8 @@ class TabItem {
     // Add a class named "tabs-item-selected" to this element
     //this.element;
     const items = document.querySelectorAll('.tabs-item');
-    item.forEach(item => item.classList.remove('tabs-item-selected'));
-    this.element.classList.add('tabs-item-selected');
+    items.forEach(items => items.classList.remove('tabs-item-selected'));
+    this.tabItm.classList.add('tabs-item-selected');
   }
 }
 
@@ -73,4 +71,4 @@ class TabItem {
 - In your .forEach() method's callback function, return a new instance of TabLink and pass in each link as a parameter
 
 */
-const links = document.querySelectorAll('.tabs-link').forEach(element => new TabLink(element));
+const links = document.querySelectorAll('.tabs-link').forEach(link => new TabLink(link));
