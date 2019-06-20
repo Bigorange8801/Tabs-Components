@@ -16,10 +16,9 @@ class TabLink {
     // Add a click event listener on this instance, calling the select method on click
     this.links = links;
     this.data = this.links.dataset.tab;
-    this.itemElement= document.querySelector(`.tabs-item[data-tab='$(this.data)']`);
+    this.itemElement= document.querySelector(`.tabs-item[data-tab='${this.data}']`);
     this.tabItem=new TabItem(this.itemElement);
-    this.links.addEventListener('click', () => {this.select()});
-    
+    this.links.addEventListener('click', () => {this.select()});  
   };
 
   select() {
@@ -33,8 +32,8 @@ class TabLink {
     // this.element;
     
     // Call the select method on the item associated with this link
-      const links = document.querySelectorAll('.tabs-links');
-      Array.from(links).forEach(item => item.classList.remove('tabs-links-selected'));
+      const links = document.querySelectorAll('.tabs-link');
+      Array.from(links).forEach(item => item.classList.remove('tabs-link-selected'));
       this.links.classList.add('tabs-link-selected');
       this.tabItem.select();
   }
