@@ -1,6 +1,6 @@
 
 class TabLink {
-  constructor(element) {
+  constructor(links) {
     // Assign this.element to the passed in DOM element
     // this.element;
     
@@ -14,7 +14,11 @@ class TabLink {
     // this.tabItem;
     
     // Add a click event listener on this instance, calling the select method on click
-
+    this.links = links;
+    this.data = this.links.dataset.tab;
+    this.itemElement= document.querySelector(`.tabs-item[data-tab='${this.data}']`);
+    this.tabItem=new TabItem(this.itemElement);
+    this.links.addEventListener('click', () => {this.select()});  
   };
 
   select() {
@@ -28,14 +32,19 @@ class TabLink {
     // this.element;
     
     // Call the select method on the item associated with this link
-
+      const links = document.querySelectorAll('.tabs-link');
+      Array.from(links).forEach(item => item.classList.remove('tabs-link-selected'));
+      this.links.classList.add('tabs-link-selected');
+      this.tabItem.select();
   }
+
 }
 
 class TabItem {
-  constructor(element) {
+  constructor(tabItm) {
     // Assign this.element to the passed in element
     // this.element;
+    this.tabItm=tabItm;
   }
 
   select() {
@@ -46,6 +55,9 @@ class TabItem {
     
     // Add a class named "tabs-item-selected" to this element
     //this.element;
+    const items = document.querySelectorAll('.tabs-item');
+    items.forEach(items => items.classList.remove('tabs-item-selected'));
+    this.tabItm.classList.add('tabs-item-selected');
   }
 }
 
@@ -58,5 +70,4 @@ class TabItem {
 - In your .forEach() method's callback function, return a new instance of TabLink and pass in each link as a parameter
 
 */
-
-links = document.querySelectorAll();
+const links = document.querySelectorAll('.tabs-link').forEach(link => new TabLink(link));
